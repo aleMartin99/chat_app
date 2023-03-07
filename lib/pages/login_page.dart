@@ -1,5 +1,5 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:real_time_chat/widgets/custom_button.dart';
 import 'package:real_time_chat/widgets/custom_input.dart';
 import 'package:real_time_chat/widgets/labels.dart';
 import 'package:real_time_chat/widgets/logo.dart';
@@ -12,17 +12,29 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xffF2F2F2),
       body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [
-            Logo(),
-            _Form(),
-            Labels(),
-            Text(
-              'Terms and Conditions',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w200),
-            )
-          ],
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height * 0.9,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+                Logo(
+                  title: 'Messenger',
+                ),
+                _Form(),
+                Labels(
+                  route: 'register',
+                  actionLabel: 'Create one now!',
+                  accountLabel: 'Dont have an account?',
+                ),
+                Text(
+                  'Terms and Conditions',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w200),
+                )
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -60,16 +72,12 @@ class _FormState extends State<_Form> {
             textController: passContr,
             isPassword: true,
           ),
-
-          //TODO implement button
-          ElevatedButton(
-            onPressed: () {
-              if (kDebugMode) {
-                print(emailContr);
-              }
-            },
-            child: const Text('Submit'),
-          )
+          CustomButton(
+              text: 'Submit',
+              color: Colors.blue,
+              onPressed: () {
+                print('$emailContr = $passContr');
+              })
         ],
       ),
     );
